@@ -1,0 +1,43 @@
+`timescale 1ns / 1ps
+
+module lab_4_tb;
+
+    // Testbench signals
+    logic a, b, c, d;
+    logic A, B, C, D, E, F, G;
+
+    // Instantiate the module under test
+    lab_4 uut (
+        .a(a),
+        .b(b),
+        .c(c),
+        .d(d),
+        .A(A),
+        .B(B),
+        .C(C),
+        .D(D),
+        .E(E),
+        .F(F),
+        .G(G)
+    );
+
+    // Test stimulus
+    initial begin
+        // Display header
+        $display("Time | a b c d | A B C D E F G");
+
+        // Apply all input combinations (0000 to 1111)
+        for (int i = 0; i < 16; i = i + 1) begin
+            {a, b, c, d} = i;   // Assign binary values
+            #10;  // Wait 10 time units for simulation response
+            
+            // Print values in the console
+            $display("%4t | %b %b %b %b | %b %b %b %b %b %b %b", 
+                     $time, a, b, c, d, A, B, C, D, E, F, G);
+        end
+
+        // End simulation
+        $finish;
+    end
+
+endmodule
