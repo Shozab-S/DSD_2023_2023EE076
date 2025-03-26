@@ -14,7 +14,7 @@ module exp7 (
     logic [2:0] active_display;
     logic [3:0] display_mem [7:0];  
 
-    // Clock Divider (Behavioral)
+    // Clock Divider 
     always_ff @(posedge clk or posedge rst) begin
         if (rst) begin
             clk_count <= 0;
@@ -29,7 +29,7 @@ module exp7 (
         end
     end
 
-    // Display Selector (Behavioral)
+    // Display Selector
     always_ff @(posedge slow_clk or posedge rst) begin
         if (rst)
             active_display <= 3'b000;
@@ -37,7 +37,7 @@ module exp7 (
             active_display <= active_display + 1;
     end
 
-    // Anode Activation (Behavioral)
+    // Anode Activation 
     always_ff @(posedge slow_clk or posedge rst) begin
         if (rst)
             an_out <= 8'b11111111;
@@ -56,16 +56,16 @@ module exp7 (
         end
     end
 
-    // Memory Storage (Behavioral, No Explicit Initialization)
+    // Memory Storage 
     always_ff @(posedge clk or posedge rst) begin
         if (rst) begin
-            // No need to manually reset display_mem; SystemVerilog initializes to 0 by default
+            
         end else if (wr) begin
             display_mem[addr] <= value;
         end
     end
 
-    // Seven-Segment Decoder (Behavioral)
+    // Seven-Segment Decoder 
     always_ff @(posedge slow_clk or posedge rst) begin
         if (rst)
             seg_out <= 7'b1111111; // Default: OFF
